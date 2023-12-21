@@ -1,0 +1,302 @@
+B 3 C o m p i l a t i o n
+B 79 Include File Summary
+B 91 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 94 Return
+D 99 Var
+D 104 BudgetCon
+D 109 ReturnCon
+D 114 ObjDef
+B 120 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 123 x
+E 145 PortfolioVariance
+E 153 PortfolioReturn
+E 161 z
+B 169 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 180 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 199 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 248 Return
+F 249 Var
+F 250 BudgetCon
+F 251 ReturnCon
+F 252 ObjDef
+G 260 x
+G 275 PortfolioVariance
+G 276 PortfolioReturn
+G 277 z
+B 290 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 293 Return
+D 298 Var
+D 303 BudgetCon
+D 308 ReturnCon
+D 313 ObjDef
+B 319 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 322 x
+E 344 PortfolioVariance
+E 352 PortfolioReturn
+E 360 z
+B 368 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 379 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 398 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 446 Return
+F 447 Var
+F 448 BudgetCon
+F 449 ReturnCon
+F 450 ObjDef
+G 458 x
+G 473 PortfolioVariance
+G 474 PortfolioReturn
+G 475 z
+B 488 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 491 Return
+D 496 Var
+D 501 BudgetCon
+D 506 ReturnCon
+D 511 ObjDef
+B 517 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 520 x
+E 542 PortfolioVariance
+E 550 PortfolioReturn
+E 558 z
+B 566 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 577 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 596 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 644 Return
+F 645 Var
+F 646 BudgetCon
+F 647 ReturnCon
+F 648 ObjDef
+G 656 x
+G 671 PortfolioVariance
+G 672 PortfolioReturn
+G 673 z
+B 686 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 689 Return
+D 694 Var
+D 699 BudgetCon
+D 704 ReturnCon
+D 709 ObjDef
+B 715 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 718 x
+E 740 PortfolioVariance
+E 748 PortfolioReturn
+E 756 z
+B 764 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 775 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 794 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 842 Return
+F 843 Var
+F 844 BudgetCon
+F 845 ReturnCon
+F 846 ObjDef
+G 854 x
+G 869 PortfolioVariance
+G 870 PortfolioReturn
+G 871 z
+B 884 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 887 Return
+D 892 Var
+D 897 BudgetCon
+D 902 ReturnCon
+D 907 ObjDef
+B 913 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 916 x
+E 938 PortfolioVariance
+E 946 PortfolioReturn
+E 954 z
+B 962 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 973 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 992 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 1040 Return
+F 1041 Var
+F 1042 BudgetCon
+F 1043 ReturnCon
+F 1044 ObjDef
+G 1052 x
+G 1067 PortfolioVariance
+G 1068 PortfolioReturn
+G 1069 z
+B 1082 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 1085 Return
+D 1090 Var
+D 1095 BudgetCon
+D 1100 ReturnCon
+D 1105 ObjDef
+B 1111 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 1114 x
+E 1136 PortfolioVariance
+E 1144 PortfolioReturn
+E 1152 z
+B 1160 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1171 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1190 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 1239 Return
+F 1240 Var
+F 1241 BudgetCon
+F 1242 ReturnCon
+F 1243 ObjDef
+G 1251 x
+G 1266 PortfolioVariance
+G 1267 PortfolioReturn
+G 1268 z
+B 1281 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 1284 Return
+D 1289 Var
+D 1294 BudgetCon
+D 1299 ReturnCon
+D 1304 ObjDef
+B 1310 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 1313 x
+E 1335 PortfolioVariance
+E 1343 PortfolioReturn
+E 1351 z
+B 1359 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1370 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1389 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 1438 Return
+F 1439 Var
+F 1440 BudgetCon
+F 1441 ReturnCon
+F 1442 ObjDef
+G 1450 x
+G 1465 PortfolioVariance
+G 1466 PortfolioReturn
+G 1467 z
+B 1480 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 1483 Return
+D 1488 Var
+D 1493 BudgetCon
+D 1498 ReturnCon
+D 1503 ObjDef
+B 1509 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 1512 x
+E 1534 PortfolioVariance
+E 1542 PortfolioReturn
+E 1550 z
+B 1558 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1569 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1588 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 1636 Return
+F 1637 Var
+F 1638 BudgetCon
+F 1639 ReturnCon
+F 1640 ObjDef
+G 1648 x
+G 1663 PortfolioVariance
+G 1664 PortfolioReturn
+G 1665 z
+B 1678 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 1681 Return
+D 1686 Var
+D 1691 BudgetCon
+D 1696 ReturnCon
+D 1701 ObjDef
+B 1707 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 1710 x
+E 1732 PortfolioVariance
+E 1740 PortfolioReturn
+E 1748 z
+B 1756 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1767 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1786 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 1834 Return
+F 1835 Var
+F 1836 BudgetCon
+F 1837 ReturnCon
+F 1838 ObjDef
+G 1846 x
+G 1861 PortfolioVariance
+G 1862 PortfolioReturn
+G 1863 z
+B 1876 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 1879 Return
+D 1884 Var
+D 1889 BudgetCon
+D 1894 ReturnCon
+D 1899 ObjDef
+B 1905 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 1908 x
+E 1930 PortfolioVariance
+E 1938 PortfolioReturn
+E 1946 z
+B 1954 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1965 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 1984 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 2032 Return
+F 2033 Var
+F 2034 BudgetCon
+F 2035 ReturnCon
+F 2036 ObjDef
+G 2044 x
+G 2059 PortfolioVariance
+G 2060 PortfolioReturn
+G 2061 z
+B 2074 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 2077 Return
+D 2082 Var
+D 2087 BudgetCon
+D 2092 ReturnCon
+D 2097 ObjDef
+B 2103 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 2106 x
+E 2128 PortfolioVariance
+E 2136 PortfolioReturn
+E 2144 z
+B 2152 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2163 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2182 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 2230 Return
+F 2231 Var
+F 2232 BudgetCon
+F 2233 ReturnCon
+F 2234 ObjDef
+G 2242 x
+G 2257 PortfolioVariance
+G 2258 PortfolioReturn
+G 2259 z
+B 2272 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 2275 Return
+D 2280 Var
+D 2285 BudgetCon
+D 2290 ReturnCon
+D 2295 ObjDef
+B 2301 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 2304 x
+E 2326 PortfolioVariance
+E 2334 PortfolioReturn
+E 2342 z
+B 2350 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2361 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2380 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 2428 Return
+F 2429 Var
+F 2430 BudgetCon
+F 2431 ReturnCon
+F 2432 ObjDef
+G 2440 x
+G 2455 PortfolioVariance
+G 2456 PortfolioReturn
+G 2457 z
+B 2470 Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+D 2473 Return
+D 2478 Var
+D 2483 BudgetCon
+D 2488 ReturnCon
+D 2493 ObjDef
+B 2499 Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+E 2502 x
+E 2524 PortfolioVariance
+E 2532 PortfolioReturn
+E 2540 z
+B 2548 Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2559 Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+B 2578 Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+F 2626 Return
+F 2627 Var
+F 2628 BudgetCon
+F 2629 ReturnCon
+F 2630 ObjDef
+G 2638 x
+G 2653 PortfolioVariance
+G 2654 PortfolioReturn
+G 2655 z
+B 2671 E x e c u t i o n

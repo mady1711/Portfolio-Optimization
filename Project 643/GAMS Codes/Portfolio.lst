@@ -1,0 +1,2689 @@
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  SET Assets;
+   2   
+   3  ALIAS(Assets,i,j);
+   4   
+   5  PARAMETERS
+   6           ExpectedReturns(i)  Expected returns
+   7           VarCov(i,j)         Variance-Covariance matrix ;
+   8   
+   9   
+GDXIN   /Users/madhav/Desktop/Project 643/GAMS Codes/Estimate.gdx
+--- LOAD  Assets = 22:SUBSET
+--- LOAD  VarCov = 25:VarCov
+--- LOAD  ExpectedReturns = 26:ExpectedReturns
+  13   
+  14  SCALAR
+  15      r Target Return;
+  16   
+  17   
+  18  POSITIVE VARIABLES
+  19      x(i) Holdings of assets;
+  20   
+  21  VARIABLES
+  22      PortfolioVariance Portfolio variance
+  23      PortfolioReturn   Portfolio return
+  24      z            Objective function value;
+  25   
+  26  EQUATIONS
+  27      Return    Equation defining the portfolio return
+  28      Var       Equation defining the portfolio variance denoting risk
+  29      BudgetCon    Equation defining the normalization contraint
+  30      ReturnCon    Equation defining the Target Return Constraint
+  31      ObjDef       Objective function definition;
+  32   
+  33   
+  34  Return ..   PortfolioReturn    =e= SUM(i, ExpectedReturns(i)*x(i));
+  35   
+  36  Var    ..   PortfolioVariance  =e= SUM((i,j), x(i)*VarCov(i,j)*x(j));
+  37   
+  38  BudgetCon ..   SUM(i, x(i))  =e= 1;
+  39   
+  40  ReturnCon ..   PortfolioReturn    =g= r;
+  41   
+  42  ObjDef    ..   z             =e= PortfolioVariance;
+  43   
+  44  MODEL PortfolioTargetRet /all/;
+  45   
+  46  FILE FrontierHandle /"PortVarianceFrontier.csv"/;
+  47   
+  48  FrontierHandle.pc = 5;
+  49   
+  50  PUT FrontierHandle;
+  51   
+  52  PUT "r","Variance","ExpReturn";
+  53   
+  54  LOOP (i, PUT i.tl);
+  55   
+  56  PUT /;
+  57   
+  58   
+  59  FOR  (r = 0 TO 0.25 BY 0.02,
+  60   
+  61     SOLVE PortfolioTargetRet MINIMIZING z USING nlp;
+  62   
+  63     PUT r:6:5, PortfolioVariance.l:6:5, PortfolioReturn.l:6:5;
+  64   
+  65     LOOP (i, PUT x.l(i):6:5 );
+  66   
+  67     PUT /;
+  68  )
+  69   
+  70  PUTCLOSE;
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  /Users/madhav/Desktop/Project 643/GAMS Codes/Portfolio.gms
+     2       10 GDXIN          1      10  /Users/madhav/Desktop/Project 643/GAMS Codes/Estimate.gdx
+
+
+COMPILATION TIME     =        0.013 SECONDS      3 MB  45.3.0 c4c31d8a DEX-DEG
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0)*x(YRS_1_3) + (0)*x(EMU) + (0)*x(EU_EX) + (0)*x(PACIFIC) + (0)*x(EMERGT) + (0)*x(NOR_AM) + (0)*x(CASH_EU) + (0)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0 ; (LHS = 0)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -0.0642  Return
+       (0)      Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -0.1477  Return
+       (0)      Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -0.1405  Return
+       (0)      Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 4.171E-02, 1.000E+00] - Zero values observed as well
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   1
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.010 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 1
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0111
+
+ RESOURCE USAGE, LIMIT          0.515 10000000000.000
+ ITERATION COUNT, LIMIT        10    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.001 = 50.0%
+             Directional 2nd Derivative       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .             EPS         
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000         0.0223      
+---- EQU ReturnCon           .             0.0949        +INF             .          
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3411        +INF            EPS         
+EMU              .              .            +INF            0.0239      
+EU_EX            .              .            +INF            0.0310      
+PACIFIC          .              .            +INF            0.0208      
+EMERGT           .             0.0096        +INF            EPS         
+NOR_AM           .             0.1062        +INF            EPS         
+CASH_EU          .             0.5156        +INF            EPS         
+ITMHIST          .             0.0275        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0111        +INF             .          
+---- VAR Portfolio~        -INF            0.0949        +INF             .          
+---- VAR z                 -INF            0.0111        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 8
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0222532962877682)*x(YRS_1_3) - (0.0461344448361814)*x(EMU) - (0.0532313447923949)*x(EU_EX) - (0.0430842453511218)*x(PACIFIC) - (0.0222532962877682)*x(EMERGT) - (0.0222532962877682)*x(NOR_AM) - (0.0222532962877682)*x(CASH_EU) - (0.0222532962877682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.02 ; (LHS = 0.0949472967213086)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 9
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.341148355812195, +INF, EPS)
+       -0.0642  Return
+      (-0.0223) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0238811485484132)
+       -0.1477  Return
+      (-0.0461) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0309780485046267)
+       -0.1405  Return
+      (-0.0532) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0949472967213086, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 10
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 2.000E-02, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 11
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   2
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.008 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 2
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 12
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0111
+
+ RESOURCE USAGE, LIMIT          0.014 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .             EPS         
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000         0.0223      
+---- EQU ReturnCon          0.0200         0.0949        +INF             .          
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3411        +INF            EPS         
+EMU              .              .            +INF            0.0239      
+EU_EX            .              .            +INF            0.0310      
+PACIFIC          .              .            +INF            0.0208      
+EMERGT           .             0.0096        +INF            EPS         
+NOR_AM           .             0.1062        +INF            EPS         
+CASH_EU          .             0.5156        +INF            EPS         
+ITMHIST          .             0.0275        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0111        +INF             .          
+---- VAR Portfolio~        -INF            0.0949        +INF             .          
+---- VAR z                 -INF            0.0111        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 13
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0222532962877682)*x(YRS_1_3) - (0.0461344448361814)*x(EMU) - (0.0532313447923949)*x(EU_EX) - (0.0430842453511218)*x(PACIFIC) - (0.0222532962877682)*x(EMERGT) - (0.0222532962877682)*x(NOR_AM) - (0.0222532962877682)*x(CASH_EU) - (0.0222532962877682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.04 ; (LHS = 0.0949472967213083)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 14
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.341148355812195, +INF, EPS)
+       -0.0642  Return
+      (-0.0223) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0238811485484132)
+       -0.1477  Return
+      (-0.0461) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0309780485046267)
+       -0.1405  Return
+      (-0.0532) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0949472967213083, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 15
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 4.000E-02, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 16
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   3
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.007 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 3
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 17
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0111
+
+ RESOURCE USAGE, LIMIT          0.011 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.001 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .             EPS         
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000         0.0223      
+---- EQU ReturnCon          0.0400         0.0949        +INF             .          
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3411        +INF            EPS         
+EMU              .              .            +INF            0.0239      
+EU_EX            .              .            +INF            0.0310      
+PACIFIC          .              .            +INF            0.0208      
+EMERGT           .             0.0096        +INF            EPS         
+NOR_AM           .             0.1062        +INF            EPS         
+CASH_EU          .             0.5156        +INF            EPS         
+ITMHIST          .             0.0275        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0111        +INF             .          
+---- VAR Portfolio~        -INF            0.0949        +INF             .          
+---- VAR z                 -INF            0.0111        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 18
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0222532962877682)*x(YRS_1_3) - (0.0461344448361814)*x(EMU) - (0.0532313447923949)*x(EU_EX) - (0.0430842453511218)*x(PACIFIC) - (0.0222532962877682)*x(EMERGT) - (0.0222532962877682)*x(NOR_AM) - (0.0222532962877682)*x(CASH_EU) - (0.0222532962877682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.06 ; (LHS = 0.0949472967213083)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 19
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.341148355812195, +INF, EPS)
+       -0.0642  Return
+      (-0.0223) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0238811485484132)
+       -0.1477  Return
+      (-0.0461) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0309780485046267)
+       -0.1405  Return
+      (-0.0532) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0949472967213083, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 20
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 6.000E-02, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 21
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   4
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.008 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 4
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 22
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0111
+
+ RESOURCE USAGE, LIMIT          0.016 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .             EPS         
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000         0.0223      
+---- EQU ReturnCon          0.0600         0.0949        +INF             .          
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3411        +INF            EPS         
+EMU              .              .            +INF            0.0239      
+EU_EX            .              .            +INF            0.0310      
+PACIFIC          .              .            +INF            0.0208      
+EMERGT           .             0.0096        +INF            EPS         
+NOR_AM           .             0.1062        +INF            EPS         
+CASH_EU          .             0.5156        +INF            EPS         
+ITMHIST          .             0.0275        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0111        +INF             .          
+---- VAR Portfolio~        -INF            0.0949        +INF             .          
+---- VAR z                 -INF            0.0111        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 23
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0222532962877682)*x(YRS_1_3) - (0.0461344448361814)*x(EMU) - (0.0532313447923949)*x(EU_EX) - (0.0430842453511218)*x(PACIFIC) - (0.0222532962877682)*x(EMERGT) - (0.0222532962877682)*x(NOR_AM) - (0.0222532962877682)*x(CASH_EU) - (0.0222532962877682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.08 ; (LHS = 0.0949472967213083)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 24
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.341148355812195, +INF, EPS)
+       -0.0642  Return
+      (-0.0223) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0238811485484132)
+       -0.1477  Return
+      (-0.0461) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0309780485046267)
+       -0.1405  Return
+      (-0.0532) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0949472967213083, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 25
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 8.000E-02, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 26
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   5
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.008 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 5
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 27
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0111
+
+ RESOURCE USAGE, LIMIT          0.010 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.002 seconds
+   of which: Function evaluations             0.001 = 50.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .             EPS         
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000         0.0223      
+---- EQU ReturnCon          0.0800         0.0949        +INF             .          
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3411        +INF            EPS         
+EMU              .              .            +INF            0.0239      
+EU_EX            .              .            +INF            0.0310      
+PACIFIC          .              .            +INF            0.0208      
+EMERGT           .             0.0096        +INF            EPS         
+NOR_AM           .             0.1062        +INF            EPS         
+CASH_EU          .             0.5156        +INF            EPS         
+ITMHIST          .             0.0275        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0111        +INF             .          
+---- VAR Portfolio~        -INF            0.0949        +INF             .          
+---- VAR z                 -INF            0.0111        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 28
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0222532962877682)*x(YRS_1_3) - (0.0461344448361814)*x(EMU) - (0.0532313447923949)*x(EU_EX) - (0.0430842453511218)*x(PACIFIC) - (0.0222532962877682)*x(EMERGT) - (0.0222532962877682)*x(NOR_AM) - (0.0222532962877682)*x(CASH_EU) - (0.0222532962877682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.1 ; (LHS = 0.0949472967213083, INFES = 0.00505270327869166 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 29
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.341148355812195, +INF, EPS)
+       -0.0642  Return
+      (-0.0223) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0238811485484132)
+       -0.1477  Return
+      (-0.0461) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0309780485046267)
+       -0.1405  Return
+      (-0.0532) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0949472967213083, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0111266481438841, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 30
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 31
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   6
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.003 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 6
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 32
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0117
+
+ RESOURCE USAGE, LIMIT          0.021 10000000000.000
+ ITERATION COUNT, LIMIT        11    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.005 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+             Directional 2nd Derivative       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -0.2463      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.0011      
+---- EQU ReturnCon          0.1000         0.1000        +INF            0.2463      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3558        +INF             .          
+EMU              .              .            +INF            0.0256      
+EU_EX            .              .            +INF            0.0351      
+PACIFIC          .              .            +INF            0.0537      
+EMERGT           .             0.0252        +INF            EPS         
+NOR_AM           .             0.1416        +INF             .          
+CASH_EU          .             0.4697        +INF            EPS         
+ITMHIST          .             0.0076        +INF            EPS         
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0117        +INF             .          
+---- VAR Portfolio~        -INF            0.1000        +INF             .          
+---- VAR z                 -INF            0.0117        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 33
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  - (0.0146813154218531)*x(YRS_1_3) - (0.0607918349648222)*x(EMU) - (0.0686220350508092)*x(EU_EX) - (0.0628580683441715)*x(PACIFIC) - (0.0574993782338908)*x(EMERGT) - (0.0448243698577016)*x(NOR_AM) - (0.0219347732934632)*x(CASH_EU) - (0.0227459639516553)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.12 ; (LHS = 0.0999999999999999, INFES = 0.0200000000000001 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 34
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.355843360121228, +INF, 0)
+       -0.0642  Return
+      (-0.0147) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0255552729107848)
+       -0.1477  Return
+      (-0.0608) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0351493679869817)
+       -0.1405  Return
+      (-0.0686) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0117489173962994, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.0999999999999999, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0117489173962994, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 35
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.200E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.468E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 36
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   7
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.003 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 7
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 37
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0299
+
+ RESOURCE USAGE, LIMIT          0.011 10000000000.000
+ ITERATION COUNT, LIMIT        11    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.003 seconds
+   of which: Function evaluations             0.001 = 33.3%
+             1st Derivative evaluations       0.000 =  0.0%
+             Directional 2nd Derivative       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -1.6048      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.1328      
+---- EQU ReturnCon          0.1200         0.1200        +INF            1.6048      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3580        +INF             .          
+EMU              .              .            +INF            0.0612      
+EU_EX            .              .            +INF            0.0644      
+PACIFIC          .              .            +INF            0.2357      
+EMERGT           .             0.0847        +INF             .          
+NOR_AM           .             0.2654        +INF            EPS         
+CASH_EU          .             0.2919        +INF            EPS         
+ITMHIST          .              .            +INF            0.0976      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0299        +INF             .          
+---- VAR Portfolio~        -INF            0.1200        +INF             .          
+---- VAR z                 -INF            0.0299        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 38
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.0297634464566773)*x(YRS_1_3) - (0.165407888204791)*x(EMU) - (0.157021012539243)*x(EU_EX) - (0.169815320482926)*x(PACIFIC) - (0.24921054661146)*x(EMERGT) - (0.166628629853576)*x(NOR_AM) - (0.0174952563687502)*x(CASH_EU) - (0.120348709931614)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.14 ; (LHS = 0.12, INFES = 0.02 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 39
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.358038993378896, +INF, 0)
+       -0.0642  Return
+       (0.0298) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0612470313445823)
+       -0.1477  Return
+      (-0.1654) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0643525212008431)
+       -0.1405  Return
+      (-0.157)  Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0298875745100966, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.12, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0298875745100966, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 40
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.400E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.750E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 41
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   8
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.006 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 8
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 42
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.0760
+
+ RESOURCE USAGE, LIMIT          0.025 10000000000.000
+ ITERATION COUNT, LIMIT         9    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.008 seconds
+   of which: Function evaluations             0.001 = 12.5%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -3.0045      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.2687      
+---- EQU ReturnCon          0.1400         0.1400        +INF            3.0045      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3542        +INF             .          
+EMU              .              .            +INF            0.1001      
+EU_EX            .              .            +INF            0.0949      
+PACIFIC          .              .            +INF            0.4232      
+EMERGT           .             0.1439        +INF             .          
+NOR_AM           .             0.3874        +INF            EPS         
+CASH_EU          .             0.1145        +INF            EPS         
+ITMHIST          .              .            +INF            0.2056      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.0760        +INF             .          
+---- VAR Portfolio~        -INF            0.1400        +INF             .          
+---- VAR z                 -INF            0.0760        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 43
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.0757649695725899)*x(YRS_1_3) - (0.275036254823313)*x(EMU) - (0.248375696924506)*x(EU_EX) - (0.279858284650269)*x(PACIFIC) - (0.446536323642954)*x(EMERGT) - (0.291924628679118)*x(NOR_AM) - (0.0127138213376633)*x(CASH_EU) - (0.228240321164682)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.16 ; (LHS = 0.14, INFES = 0.0200000000000001 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 44
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.35421408316577, +INF, 0)
+       -0.0642  Return
+       (0.0758) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.100065175325136)
+       -0.1477  Return
+      (-0.275)  Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.0949208788818562)
+       -0.1405  Return
+      (-0.2484) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.0759810309394884, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.14, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.0759810309394884, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 45
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.600E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.271E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 46
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   9
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.005 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 9
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 47
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.1506
+
+ RESOURCE USAGE, LIMIT          0.027 10000000000.000
+ ITERATION COUNT, LIMIT         7    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.003 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -4.5611      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.4285      
+---- EQU ReturnCon          0.1600         0.1600        +INF            4.5611      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.3051        +INF             .          
+EMU              .              .            +INF            0.1432      
+EU_EX            .              .            +INF            0.1346      
+PACIFIC          .              .            +INF            0.6325      
+EMERGT           .             0.2090        +INF            EPS         
+NOR_AM           .             0.4859        +INF             .          
+CASH_EU          .              .            +INF            0.0177      
+ITMHIST          .              .            +INF            0.3128      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.1506        +INF             .          
+---- VAR Portfolio~        -INF            0.1600        +INF             .          
+---- VAR z                 -INF            0.1506        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 48
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.135672690811921)*x(YRS_1_3) - (0.388186167838604)*x(EMU) - (0.346892482875488)*x(EU_EX) - (0.394194106382098)*x(PACIFIC) - (0.657209572105252)*x(EMERGT) - (0.422500464224236)*x(NOR_AM) - (0.0163165093863245)*x(CASH_EU) - (0.326420420655272)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.18 ; (LHS = 0.16, INFES = 0.02 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 49
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.305112536241398, +INF, 0)
+       -0.0642  Return
+       (0.1357) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.143227662510443)
+       -0.1477  Return
+      (-0.3882) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.134596852968041)
+       -0.1405  Return
+      (-0.3469) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.15062541848644, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.16, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.15062541848644, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 50
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.800E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.632E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 51
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   10
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.005 SECONDS      4 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 10
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 52
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.2603
+
+ RESOURCE USAGE, LIMIT          0.023 10000000000.000
+ ITERATION COUNT, LIMIT         5    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.011 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.001 =  9.1%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -6.4028      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.6320      
+---- EQU ReturnCon          0.1800         0.1800        +INF            6.4028      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.1736        +INF             .          
+EMU              .              .            +INF            0.1943      
+EU_EX            .              .            +INF            0.1908      
+PACIFIC          .              .            +INF            0.8813      
+EMERGT           .             0.2850        +INF             .          
+NOR_AM           .             0.5414        +INF            EPS         
+CASH_EU          .              .            +INF            0.0675      
+ITMHIST          .              .            +INF            0.4182      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.2603        +INF             .          
+---- VAR Portfolio~        -INF            0.1800        +INF             .          
+---- VAR z                 -INF            0.2603        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 53
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.220881218390745)*x(YRS_1_3) - (0.507743149314102)*x(EMU) - (0.45843992919013)*x(EU_EX) - (0.516340312873955)*x(PACIFIC) - (0.892167084810379)*x(EMERGT) - (0.562682385137999)*x(NOR_AM) - (0.0351731922715158)*x(CASH_EU) - (0.406931486835526)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.2 ; (LHS = 0.18, INFES = 0.02 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 54
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.17363510145894, +INF, 0)
+       -0.0642  Return
+       (0.2209) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.194294206943786)
+       -0.1477  Return
+      (-0.5077) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.190843138854261)
+       -0.1405  Return
+      (-0.4584) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.260264301665743, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.18, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.260264301665743, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 55
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 2.000E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 3.517E-02, 1.000E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 56
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   11
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.011 SECONDS      5 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 11
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 57
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.4067
+
+ RESOURCE USAGE, LIMIT          0.016 10000000000.000
+ ITERATION COUNT, LIMIT         5    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.003 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -8.2446      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.8354      
+---- EQU ReturnCon          0.2000         0.2000        +INF            8.2446      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .             0.0422        +INF            EPS         
+EMU              .              .            +INF            0.2454      
+EU_EX            .              .            +INF            0.2471      
+PACIFIC          .              .            +INF            1.1301      
+EMERGT           .             0.3610        +INF             .          
+NOR_AM           .             0.5969        +INF             .          
+CASH_EU          .              .            +INF            0.1173      
+ITMHIST          .              .            +INF            0.5236      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.4067        +INF             .          
+---- VAR Portfolio~        -INF            0.2000        +INF             .          
+---- VAR z                 -INF            0.4067        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 58
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.306089745969572)*x(YRS_1_3) - (0.6273001307896)*x(EMU) - (0.569987375504774)*x(EU_EX) - (0.638486519365811)*x(PACIFIC) - (1.1271245975155)*x(EMERGT) - (0.702864306051765)*x(NOR_AM) - (0.0540298751567077)*x(CASH_EU) - (0.487442553015778)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.22 ; (LHS = 0.2, INFES = 0.02 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 59
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0.0421576666764784, +INF, EPS)
+       -0.0642  Return
+       (0.3061) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.245360751377125)
+       -0.1477  Return
+      (-0.6273) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.247089424740481)
+       -0.1405  Return
+      (-0.57)   Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.406738364166572, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.2, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.406738364166572, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 60
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 2.200E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 4.171E-02, 1.127E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 61
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   12
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.008 SECONDS      5 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 12
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 62
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE                0.6174
+
+ RESOURCE USAGE, LIMIT          0.021 10000000000.000
+ ITERATION COUNT, LIMIT         5    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Optimal solution. There are no superbasic variables.
+ 
+ 
+ CONOPT time Total                            0.003 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .           -14.1189      
+---- EQU Var                 .              .              .             1.0000      
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -1.8713      
+---- EQU ReturnCon          0.2200         0.2200        +INF           14.1189      
+---- EQU ObjDef              .              .              .             1.0000      
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .              .            +INF            0.6134      
+EMU              .              .            +INF            0.5156      
+EU_EX            .              .            +INF            0.5418      
+PACIFIC          .              .            +INF            2.0675      
+EMERGT           .             0.6494        +INF             .          
+NOR_AM           .             0.3506        +INF             .          
+CASH_EU          .              .            +INF            0.6085      
+ITMHIST          .              .            +INF            1.0893      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.6174        +INF             .          
+---- VAR Portfolio~        -INF            0.2200        +INF             .          
+---- VAR z                 -INF            0.6174        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 63
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- Return  =E=  Equation defining the portfolio return
+
+Return..  - 0.0642058030681196*x(YRS_1_3) - 0.147658072041419*x(EMU) - 0.140496832782282*x(EU_EX) - 0.0417064025167957*x(PACIFIC) - 0.238042904546191*x(EMERGT) - 0.186583623751555*x(NOR_AM) - 0.0936541248576683*x(CASH_EU) - 0.0969474787252928*x(ITMHIST) + PortfolioReturn =E= 0 ; (LHS = 0)
+     
+
+---- Var  =E=  Equation defining the portfolio variance denoting risk
+
+Var..  (0.351334622754606)*x(YRS_1_3) - (0.729137531491335)*x(EMU) - (0.654219758144573)*x(EU_EX) - (0.78510527857461)*x(PACIFIC) - (1.48963188817529)*x(EMERGT) - (0.763083467259838)*x(NOR_AM) - (0.0595461869430738)*x(CASH_EU) - (0.586799497177504)*x(ITMHIST) + PortfolioVariance =E= 0 ; (LHS = 0)
+     
+
+---- BudgetCon  =E=  Equation defining the normalization contraint
+
+BudgetCon..  x(YRS_1_3) + x(EMU) + x(EU_EX) + x(PACIFIC) + x(EMERGT) + x(NOR_AM) + x(CASH_EU) + x(ITMHIST) =E= 1 ; (LHS = 1)
+     
+
+---- ReturnCon  =G=  Equation defining the Target Return Constraint
+
+ReturnCon..  PortfolioReturn =G= 0.24 ; (LHS = 0.22, INFES = 0.02 ****)
+     
+
+---- ObjDef  =E=  Objective function definition
+
+ObjDef..  - PortfolioVariance + z =E= 0 ; (LHS = 0)
+     
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 64
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+---- x  Holdings of assets
+
+x(YRS_1_3)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.613422077971213)
+       -0.0642  Return
+       (0.3513) Var
+        1       BudgetCon
+
+x(EMU)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.515640022129501)
+       -0.1477  Return
+      (-0.7291) Var
+        1       BudgetCon
+
+x(EU_EX)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0.541831067156788)
+       -0.1405  Return
+      (-0.6542) Var
+        1       BudgetCon
+
+REMAINING 5 ENTRIES SKIPPED
+
+---- PortfolioVariance  Portfolio variance
+
+PortfolioVariance
+                (.LO, .L, .UP, .M = -INF, 0.617442964866665, +INF, 0)
+        1       Var
+       -1       ObjDef
+
+
+---- PortfolioReturn  Portfolio return
+
+PortfolioReturn
+                (.LO, .L, .UP, .M = -INF, 0.22, +INF, 0)
+        1       Return
+        1       ReturnCon
+
+
+---- z  Objective function value
+
+z
+                (.LO, .L, .UP, .M = -INF, 0.617442964866665, +INF, 0)
+        1       ObjDef
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 65
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 2.400E-01, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 4.171E-02, 1.490E+00]
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 66
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+LOOPS                            FOR/WHILE   13
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS            5
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES           11
+NON ZERO ELEMENTS            29     NON LINEAR N-Z              8
+CODE LENGTH                 258     CONSTANT POOL              52
+
+
+GENERATION TIME      =        0.006 SECONDS      5 MB  45.3.0 c4c31d8a DEX-DEG
+               L O O P S          FOR/WHILE 13
+
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 67
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE PortfolioTargetRet Using NLP From line 61
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   PortfolioTargetRet   OBJECTIVE  z
+     TYPE    NLP                  DIRECTION  MINIMIZE
+     SOLVER  CONOPT               FROM LINE  61
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      4 Infeasible
+**** OBJECTIVE VALUE                0.9355
+
+ RESOURCE USAGE, LIMIT          0.018 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+ EVALUATION ERRORS              0             0
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 11 variables and 5 constraints
+    with 29 Jacobian elements, 8 of which are nonlinear.
+    The Hessian of the Lagrangian has 8 elements on the diagonal,
+    28 elements below the diagonal, and 8 nonlinear variables.
+ 
+ ** Warning **  The value of LFITER is out of range.
+                LFITER is decreased from 2147483647 to 1000000000.
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+ 
+ ** Infeasible solution. There are no superbasic variables.
+ 
+ 
+ CONOPT time Total                            0.004 seconds
+   of which: Function evaluations             0.000 =  0.0%
+             1st Derivative evaluations       0.000 =  0.0%
+ 
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU Return              .              .              .            -1.0000      
+---- EQU Var                 .              .              .             EPS         
+---- EQU BudgetCon          1.0000         1.0000         1.0000        -0.2380      
+---- EQU ReturnCon          0.2400         0.2380        +INF            1.0000 INFES
+---- EQU ObjDef              .              .              .             EPS         
+
+  Return  Equation defining the portfolio return
+  Var  Equation defining the portfolio variance denoting risk
+  BudgetCon  Equation defining the normalization contraint
+  ReturnCon  Equation defining the Target Return Constraint
+  ObjDef  Objective function definition
+
+---- VAR x  Holdings of assets
+
+               LOWER          LEVEL          UPPER         MARGINAL
+
+YRS_1_3          .              .            +INF            0.1738      
+EMU              .              .            +INF            0.0904      
+EU_EX            .              .            +INF            0.0975      
+PACIFIC          .              .            +INF            0.1963      
+EMERGT           .             1.0000        +INF             .          
+NOR_AM           .              .            +INF            0.0515      
+CASH_EU          .              .            +INF            0.1444      
+ITMHIST          .              .            +INF            0.1411      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR Portfolio~        -INF            0.9355        +INF             .          
+---- VAR Portfolio~        -INF            0.2380        +INF             .          
+---- VAR z                 -INF            0.9355        +INF             .          
+
+  PortfolioVariance  Portfolio variance
+  PortfolioReturn  Portfolio return
+  z  Objective function value
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             1 INFEASIBLE (INFES)
+                    SUM          0.0020
+                    MAX          0.0020
+                    MEAN         0.0020
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 45.3.0  c4c31d8a Nov 11, 2023          DEX-DEG x86 64bit/macOS - 12/03/23 18:30:30 Page 68
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+**** REPORT FILE SUMMARY
+
+FrontierHandle /Users/madhav/Desktop/Project 643/GAMS Codes/PortVarianceFrontier.csv
+
+
+EXECUTION TIME       =        1.820 SECONDS      5 MB  45.3.0 c4c31d8a DEX-DEG
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      /Users/madhav/Desktop/Project 643/GAMS Codes/Portfolio.gms
+Output     /Users/madhav/Desktop/Project 643/GAMS Codes/Portfolio.lst

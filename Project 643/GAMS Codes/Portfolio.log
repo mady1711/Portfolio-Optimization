@@ -1,0 +1,586 @@
+--- Job Portfolio.gms Start 12/03/23 18:30:30 45.3.0 c4c31d8a DEX-DEG x86 64bit/macOS
+--- Applying:
+    /Library/Frameworks/GAMS.framework/Versions/45/Resources/gmsprmun.txt
+--- GAMS Parameters defined
+    Input "/Users/madhav/Desktop/Project 643/GAMS Codes/Portfolio.gms"
+    PageSize 0
+    ScrDir "/Users/madhav/Desktop/Project 643/GAMS Codes/225a/"
+    SysDir /Library/Frameworks/GAMS.framework/Versions/45/Resources/
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+          https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+          /Library/Frameworks/GAMS.framework/Versions/45/Resources/gamslice.txt
+          Demo license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 2 core(s), and 4 thread(s) available
+GAMS 45.3.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
+--- Starting compilation
+--- Portfolio.gms(10) 2 Mb
+--- GDXin=/Users/madhav/Desktop/Project 643/GAMS Codes/Estimate.gdx
+--- GDX File ($gdxIn) /Users/madhav/Desktop/Project 643/GAMS Codes/Estimate.gdx
+--- Portfolio.gms(70) 3 Mb
+--- Starting execution: elapsed 0:00:00.086
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 1
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 4.171E-02, 1.000E+00] - Zero values observed as well
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:00.099
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        1.0000000000E+00 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        1.0000000000E+00 (After pre-processing)
+      2   0        1.0000000000E+00 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   0.717429831368
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+     10   4        1.1126648144E-02 1.7E-17     4
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:00.782
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 2
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 2.000E-02, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:00.791
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        5.1347814889E-16 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.2204460493E-16 (After pre-processing)
+      2   0        2.2204460493E-16 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   1.112664814388E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      4   3        1.1126648144E-02 1.7E-17     0
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:00.850
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 3
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 4.000E-02, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:00.859
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.2204460493E-16 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.2204460493E-16 (After pre-processing)
+      2   0        2.2204460493E-16 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   1.112664814388E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      4   3        1.1126648144E-02 1.7E-17     0
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:00.929
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 4
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 6.000E-02, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:00.937
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.2204460493E-16 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.2204460493E-16 (After pre-processing)
+      2   0        2.2204460493E-16 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   1.112664814388E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      4   3        1.1126648144E-02 1.7E-17     0
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.013
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 5
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 8.000E-02, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.022
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.2204460493E-16 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.2204460493E-16 (After pre-processing)
+      2   0        2.2204460493E-16 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   1.112664814388E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      4   3        1.1126648144E-02 1.7E-17     0
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.073
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 6
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.000E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 2.225E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.076
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        5.0527032787E-03 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        5.0527032787E-03 (After pre-processing)
+      2   0        5.0527032787E-03 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   1.214936543912E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      6   3        1.1776622982E-02 2.0E-02     3 4.8E-01    1 F  T
+     11   4        1.1748917396E-02 3.1E-17     3
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.151
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 6 Mb
+--- LOOPS FOR/WHILE = 7
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.200E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.468E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.155
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   3.859821340163E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+     11   4        2.9887574510E-02 5.6E-17     2
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.209
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 8
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.400E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.750E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.216
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   8.132782365082E-02
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      9   4        7.5981030939E-02 2.4E-12     2
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.314
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 9
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.600E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.271E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.319
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   0.155416144016
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      6   3        1.5062541849E-01 7.2E-04     1 2.8E-03    1 F  T
+      7   3        1.5062541849E-01 9.0E-15     1
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.434
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 10
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.800E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.632E-02, 1.000E+00]
+--- Portfolio.gms(61) 4 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.440
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   0.263769779668
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      5   3        2.6026430167E-01 0.0E+00     1
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.545
+--- Portfolio.gms(59) 4 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 11
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 2.000E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 3.517E-02, 1.000E+00]
+--- Portfolio.gms(61) 5 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.556
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   0.407664999185
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      5   3        4.0673836417E-01 2.9E-15     1
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.645
+--- Portfolio.gms(59) 5 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 12
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 2.200E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 4.171E-02, 1.127E+00]
+--- Portfolio.gms(61) 5 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.653
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+ 
+ ** Feasible solution. Value of objective =   0.649406290065
+ 
+   Iter Phase Ninf     Objective     RGmax    NSB   Step InItr MX OK
+      5   3        6.1744296487E-01 0.0E+00     0
+ 
+ ** Optimal solution. There are no superbasic variables.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.773
+--- Portfolio.gms(59) 5 Mb
+--- Generating NLP model PortfolioTargetRet
+--- Portfolio.gms(61) 7 Mb
+--- LOOPS FOR/WHILE = 13
+---   5 rows  11 columns  29 non-zeroes
+---   258 nl-code  8 nl-non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 2.400E-01, 1.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 4.171E-02, 1.490E+00]
+--- Portfolio.gms(61) 5 Mb
+--- Executing CONOPT (Solvelink=2): elapsed 0:00:01.780
+
+CONOPT 3         45.3.0 c4c31d8a Nov 11, 2023          DEG x86 64bit/macOS    
+
+--- *** This solver runs with a demo license. No commercial use.
+ 
+ 
+    C O N O P T 3   version 3.17O
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+   Iter Phase Ninf   Infeasibility   RGmax    NSB   Step InItr MX OK
+      0   0        2.0000000000E-02 (Input point)
+ 
+                   Pre-triangular equations:   0
+                   Post-triangular equations:  2
+                   Definitional equations:     1
+ 
+      1   0        2.0000000000E-02 (After pre-processing)
+      2   0        2.0000000000E-02 (After scaling)
+      4   1     1  1.9570954538E-03 0.0E+00     0
+ 
+ ** Infeasible solution. There are no superbasic variables.
+ 
+--- Reading solution for model PortfolioTargetRet
+--- Executing after solve: elapsed 0:00:01.901
+--- Portfolio.gms(70) 5 Mb
+--- Putfile FrontierHandle /Users/madhav/Desktop/Project 643/GAMS Codes/PortVarianceFrontier.csv
+*** Status: Normal completion
+--- Job Portfolio.gms Stop 12/03/23 18:30:31 elapsed 0:00:01.907

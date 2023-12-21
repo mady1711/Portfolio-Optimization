@@ -1,0 +1,234 @@
+B 3 C o m p i l a t i o n
+B 78 Include File Summary
+B 90 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 93 ReturnDef
+D 98 VarDef
+D 103 NormalCon
+D 108 ObjDef
+B 114 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 117 x
+E 139 PortVariance
+E 146 PortReturn
+E 154 z
+B 162 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 173 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 192 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 239 ReturnDef
+F 240 VarDef
+F 241 NormalCon
+F 242 ObjDef
+G 249 x
+G 264 PortVariance
+G 265 PortReturn
+G 266 z
+B 279 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 282 ReturnDef
+D 287 VarDef
+D 292 NormalCon
+D 297 ObjDef
+B 303 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 306 x
+E 328 PortVariance
+E 336 PortReturn
+E 344 z
+B 352 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 363 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 382 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 429 ReturnDef
+F 430 VarDef
+F 431 NormalCon
+F 432 ObjDef
+G 439 x
+G 454 PortVariance
+G 455 PortReturn
+G 456 z
+B 469 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 472 ReturnDef
+D 477 VarDef
+D 482 NormalCon
+D 487 ObjDef
+B 493 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 496 x
+E 518 PortVariance
+E 526 PortReturn
+E 534 z
+B 542 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 553 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 572 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 620 ReturnDef
+F 621 VarDef
+F 622 NormalCon
+F 623 ObjDef
+G 630 x
+G 645 PortVariance
+G 646 PortReturn
+G 647 z
+B 660 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 663 ReturnDef
+D 668 VarDef
+D 673 NormalCon
+D 678 ObjDef
+B 684 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 687 x
+E 709 PortVariance
+E 717 PortReturn
+E 725 z
+B 733 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 744 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 763 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 811 ReturnDef
+F 812 VarDef
+F 813 NormalCon
+F 814 ObjDef
+G 821 x
+G 836 PortVariance
+G 837 PortReturn
+G 838 z
+B 851 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 854 ReturnDef
+D 859 VarDef
+D 864 NormalCon
+D 869 ObjDef
+B 875 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 878 x
+E 900 PortVariance
+E 908 PortReturn
+E 916 z
+B 924 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 935 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 954 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1002 ReturnDef
+F 1003 VarDef
+F 1004 NormalCon
+F 1005 ObjDef
+G 1012 x
+G 1027 PortVariance
+G 1028 PortReturn
+G 1029 z
+B 1042 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 1045 ReturnDef
+D 1050 VarDef
+D 1055 NormalCon
+D 1060 ObjDef
+B 1066 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 1069 x
+E 1091 PortVariance
+E 1099 PortReturn
+E 1107 z
+B 1115 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 1126 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 1145 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1193 ReturnDef
+F 1194 VarDef
+F 1195 NormalCon
+F 1196 ObjDef
+G 1203 x
+G 1218 PortVariance
+G 1219 PortReturn
+G 1220 z
+B 1233 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 1236 ReturnDef
+D 1241 VarDef
+D 1246 NormalCon
+D 1251 ObjDef
+B 1257 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 1260 x
+E 1282 PortVariance
+E 1290 PortReturn
+E 1298 z
+B 1306 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 1317 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 1336 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1384 ReturnDef
+F 1385 VarDef
+F 1386 NormalCon
+F 1387 ObjDef
+G 1394 x
+G 1409 PortVariance
+G 1410 PortReturn
+G 1411 z
+B 1424 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 1427 ReturnDef
+D 1432 VarDef
+D 1437 NormalCon
+D 1442 ObjDef
+B 1448 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 1451 x
+E 1473 PortVariance
+E 1481 PortReturn
+E 1489 z
+B 1497 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 1508 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 1527 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1575 ReturnDef
+F 1576 VarDef
+F 1577 NormalCon
+F 1578 ObjDef
+G 1585 x
+G 1600 PortVariance
+G 1601 PortReturn
+G 1602 z
+B 1615 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 1618 ReturnDef
+D 1623 VarDef
+D 1628 NormalCon
+D 1633 ObjDef
+B 1639 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 1642 x
+E 1664 PortVariance
+E 1672 PortReturn
+E 1680 z
+B 1688 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 1699 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 1718 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1766 ReturnDef
+F 1767 VarDef
+F 1768 NormalCon
+F 1769 ObjDef
+G 1776 x
+G 1791 PortVariance
+G 1792 PortReturn
+G 1793 z
+B 1806 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 1809 ReturnDef
+D 1814 VarDef
+D 1819 NormalCon
+D 1824 ObjDef
+B 1830 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 1833 x
+E 1855 PortVariance
+E 1863 PortReturn
+E 1871 z
+B 1879 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 1890 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 1909 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 1957 ReturnDef
+F 1958 VarDef
+F 1959 NormalCon
+F 1960 ObjDef
+G 1967 x
+G 1982 PortVariance
+G 1983 PortReturn
+G 1984 z
+B 1997 Equation Listing    SOLVE MeanVar Using NLP From line 60
+D 2000 ReturnDef
+D 2005 VarDef
+D 2010 NormalCon
+D 2015 ObjDef
+B 2021 Column Listing      SOLVE MeanVar Using NLP From line 60
+E 2024 x
+E 2046 PortVariance
+E 2054 PortReturn
+E 2062 z
+B 2070 Range Statistics    SOLVE MeanVar Using NLP From line 60
+B 2081 Model Statistics    SOLVE MeanVar Using NLP From line 60
+B 2100 Solution Report     SOLVE MeanVar Using NLP From line 60
+F 2148 ReturnDef
+F 2149 VarDef
+F 2150 NormalCon
+F 2151 ObjDef
+G 2158 x
+G 2173 PortVariance
+G 2174 PortReturn
+G 2175 z
+B 2188 E x e c u t i o n
