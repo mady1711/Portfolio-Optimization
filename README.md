@@ -1,14 +1,12 @@
-CL-643 Project Report
+# Portfolio-Optimization
 
-**Portfolio-Optimization** 
-
-**The Problem:** 
+## The Problem:
 
 One of the classic problem of stock market is how to construct an investment portfolio that maximises returns while managing risks. This involves in selecting a combination of assets (stocks, bonds, currencies, etc) that provides the best tradeoff between risk and returns. Since the future returns of securities are unknown at the time of the investment decision is made, portfolio selection problem can be categorised as one of the decision- making under risk.
 
 Our approach to addressing the problem involves the initial step of formulating a comprehensive mathematical model, incorporating constraints and enhancing the objective function. Subsequently, we design a model for solving this mathematical formulation using Metaheuristic techniques and Mathematical programming. Finally, we provide real life dataset to test it.
 
-**Mathematical Formulation:** 
+## Mathematical Formulation: 
 
 Following are symbolic representation of some general terms
 
@@ -48,7 +46,7 @@ This formulation allows you to find the optimal portfolio weights (w\_i) that ba
 
 Daily Returns = (ClosingPricecurrentday - ClosingPriceprevday)/ClosingPricecurday Standard Deviation = sqrt( weight \* covariance\_matrix \* weight’ )
 
-**The Data** 
+## The Data
 
 Data provides us information on Closing Prices of all assets using which we calculate daily/monthly or quarterly return, expected Return and Variance- Covariance Matrix.
 
@@ -74,7 +72,7 @@ We use real data for the 10-year period 1990-01-01 to 2000-01-01. Data cover:
 
 This was readily available data in .gdx (GAMS data exchange) form Source: [Click Here](https://www.gams.com/latest/finlib_ml/libhtml/finlib_Estimate.html)
 
-**Results** 
+## Results 
 
 1. **Metaheuristic Techniques** 
 
@@ -119,7 +117,7 @@ Here we get range of outcomes by varying value of “λ” and if you see 3rd ro
 
 Since the problem is non-linear for very large data set you should start with Metaheuristic approach and the solution of this will provide us starting points for mathematical programming. This will give us best possible solution.
 
-**Application in Industry** 
+## Application in Industry
 
 As coming generations enhance their financial literacy, their inclination to invest in assets that are both secure and lucrative has grown. This trend has led many individuals to explore stocks and opt for **mutual funds**.
 
